@@ -122,26 +122,26 @@ class PDFReportBuilder:
             def S(name, **kw):
                 return ParagraphStyle(name, fontName=fn, **kw)
 
-            st_body    = S("Body",   fontSize=10, leading=17,
+            st_body    = S("Body",   fontSize=11, leading=18,
                            textColor=colors.HexColor("#2C3E50"), spaceAfter=5)
-            st_small   = S("Small",  fontSize=8.5, leading=13,
-                           textColor=colors.HexColor(C_GRAY), spaceAfter=3)
-            st_sub     = S("Sub",    fontSize=11, leading=15,
+            st_small   = S("Small",  fontSize=10, leading=15,
+                           textColor=colors.HexColor("#4A4A4A"), spaceAfter=3)
+            st_sub     = S("Sub",    fontSize=12, leading=16,
                            textColor=colors.HexColor(C_NAV), spaceBefore=8, spaceAfter=4)
             st_wht     = S("SecWht", fontSize=13, leading=17, textColor=colors.white)
-            st_wht_sm  = S("SecWhtSm", fontSize=10, leading=14, textColor=colors.white)
-            st_cap     = S("Cap",    fontSize=9, leading=12,
-                           textColor=colors.HexColor(C_GRAY),
+            st_wht_sm  = S("SecWhtSm", fontSize=11, leading=15, textColor=colors.white)
+            st_cap     = S("Cap",    fontSize=10, leading=14,
+                           textColor=colors.HexColor("#4A4A4A"),
                            alignment=TA_CENTER, spaceAfter=4)
-            st_hdr     = S("TblHdr", fontSize=9, leading=12, textColor=colors.white,
+            st_hdr     = S("TblHdr", fontSize=10, leading=13, textColor=colors.white,
                            alignment=TA_CENTER)
-            st_cell    = S("Cell",   fontSize=9, leading=13,
+            st_cell    = S("Cell",   fontSize=10, leading=14,
                            textColor=colors.HexColor("#2C3E50"))
-            st_cellc   = S("CellC",  fontSize=9, leading=13,
+            st_cellc   = S("CellC",  fontSize=10, leading=14,
                            textColor=colors.HexColor("#2C3E50"), alignment=TA_CENTER)
-            st_green   = S("Grn",    fontSize=9.5, leading=14,
+            st_green   = S("Grn",    fontSize=11, leading=15,
                            textColor=colors.HexColor(C_GREEN), spaceAfter=3)
-            st_red     = S("Red",    fontSize=9.5, leading=14,
+            st_red     = S("Red",    fontSize=11, leading=15,
                            textColor=colors.HexColor(C_RED), spaceAfter=3)
 
             # Cover-specific styles
@@ -150,10 +150,10 @@ class PDFReportBuilder:
             st_ccode   = S("CCode",  fontSize=14, leading=18,
                            textColor=colors.HexColor(C_TEAL),
                            alignment=TA_CENTER, spaceAfter=0)
-            st_cdate   = S("CDate",  fontSize=9,
-                           textColor=colors.HexColor(C_LG), alignment=TA_CENTER)
-            st_cdisc   = S("CDisc",  fontSize=8,
-                           textColor=colors.HexColor(C_GRAY), alignment=TA_CENTER)
+            st_cdate   = S("CDate",  fontSize=10,
+                           textColor=colors.HexColor("#555555"), alignment=TA_CENTER)
+            st_cdisc   = S("CDisc",  fontSize=9,
+                           textColor=colors.HexColor("#555555"), alignment=TA_CENTER)
 
             # ── 便捷构建函数 ──────────────────────────────────────────────────
 
@@ -175,11 +175,11 @@ class PDFReportBuilder:
                 t = Table([[label], [value]], colWidths=[w or W / 3])
                 t.setStyle(TableStyle([
                     ("BACKGROUND",    (0, 0), (-1, -1), colors.HexColor(bg)),
-                    ("TEXTCOLOR",     (0, 0), (-1, 0),  colors.HexColor("#AAAAAA")),
+                    ("TEXTCOLOR",     (0, 0), (-1, 0),  colors.HexColor("#DDDDDD")),
                     ("TEXTCOLOR",     (0, 1), (-1, 1),  colors.white),
                     ("FONTNAME",      (0, 0), (-1, -1), fn),
-                    ("FONTSIZE",      (0, 0), (-1, 0),  8),
-                    ("FONTSIZE",      (0, 1), (-1, 1),  14),
+                    ("FONTSIZE",      (0, 0), (-1, 0),  9),
+                    ("FONTSIZE",      (0, 1), (-1, 1),  15),
                     ("ALIGN",         (0, 0), (-1, -1), "CENTER"),
                     ("TOPPADDING",    (0, 0), (-1, -1), 8),
                     ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
@@ -203,10 +203,10 @@ class PDFReportBuilder:
                 style_cmds = [
                     ("BACKGROUND",    (0, 0), (-1, 0),  colors.HexColor(hdr_bg)),
                     ("FONTNAME",      (0, 0), (-1, -1), fn),
-                    ("FONTSIZE",      (0, 0), (-1, -1), 9),
-                    ("TOPPADDING",    (0, 0), (-1, -1), 5),
-                    ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
-                    ("LEFTPADDING",   (0, 0), (-1, -1), 5),
+                    ("FONTSIZE",      (0, 0), (-1, -1), 10),
+                    ("TOPPADDING",    (0, 0), (-1, -1), 6),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+                    ("LEFTPADDING",   (0, 0), (-1, -1), 6),
                     ("VALIGN",        (0, 0), (-1, -1), "MIDDLE"),
                 ]
                 if show_grid:
@@ -371,7 +371,7 @@ class PDFReportBuilder:
                                  Paragraph(str(v), st_cell)])
             if co_rows:
                 els.append(styled_table(co_rows, [W * 0.28, W * 0.72],
-                                        hdr_bg=C_BLUE, alt_bg=C_LG, show_grid=True))
+                                        hdr_bg=C_LB, alt_bg=C_LG, show_grid=True))
                 els.append(Spacer(1, 6))
 
             # 市场行情摘要
@@ -391,7 +391,7 @@ class PDFReportBuilder:
                                          Paragraph(val_str, st_cell)])
                 if mkt_rows:
                     els.append(styled_table(mkt_rows, [W * 0.35, W * 0.65],
-                                            hdr_bg=C_BLUE, show_grid=False))
+                                            hdr_bg=C_LB, show_grid=False))
                 els.append(Spacer(1, 6))
 
             # ══════════════════════════════════════════════════════════════════
@@ -497,13 +497,13 @@ class PDFReportBuilder:
 
             # 财务图表：营收 + 利润率
             if charts.get("revenue") and os.path.exists(charts["revenue"]):
-                els += sec("营收 & 净利润趋势", C_BLUE, sz=11)
+                els += sec("营收 & 净利润趋势", C_BLUE, sz=12)
                 els += chart_img(charts["revenue"],
                                  "图：营业收入（蓝柱）& 净利润（绿柱）& 净利率（橙线）趋势",
                                  W * 0.55)
 
             if charts.get("margin") and os.path.exists(charts["margin"]):
-                els += sec("利润率结构趋势", C_BLUE, sz=11)
+                els += sec("利润率结构趋势", C_BLUE, sz=12)
                 els += chart_img(charts["margin"],
                                  "图：毛利率（蓝线）/ 营业利润率（绿线）/ 净利率（橙线）趋势",
                                  W * 0.52)
@@ -533,7 +533,7 @@ class PDFReportBuilder:
                                              Paragraph(str(v), st_cell)])
                     if rows_ind:
                         els.append(styled_table(rows_ind, [W * 0.22, W * 0.78],
-                                                hdr_bg=C_BLUE, show_grid=False))
+                                                hdr_bg=C_LB, show_grid=False))
                     trends = ind_ov.get("key_trends", [])
                     if trends:
                         els.append(Spacer(1, 4))
@@ -698,7 +698,7 @@ class PDFReportBuilder:
                         impact = item.get("impact", "")
                         ic = (C_GREEN if impact == "利好"
                               else (C_RED if impact == "利空" else C_ORA))
-                        imp_st = ParagraphStyle("_imp", fontName=fn, fontSize=9,
+                        imp_st = ParagraphStyle("_imp", fontName=fn, fontSize=10,
                                                textColor=colors.white,
                                                backColor=colors.HexColor(ic),
                                                alignment=TA_CENTER)
@@ -730,7 +730,7 @@ class PDFReportBuilder:
             # ══════════════════════════════════════════════════════════════════
             # § 6  现金流分析 (Apple报告§5.1)
             # ══════════════════════════════════════════════════════════════════
-            els += sec("六、现金流分析", C_BLUE, sz=11)
+            els += sec("六、现金流分析", C_BLUE, sz=12)
             if charts.get("cashflow") and os.path.exists(charts["cashflow"]):
                 els += chart_img(charts["cashflow"],
                                  "图：营业收入 / 净利润 / 经营现金流 对比（亿元）",
@@ -818,7 +818,7 @@ class PDFReportBuilder:
                     for f in factors:
                         sev = f.get("severity", "")
                         sv_c = C_RED if "高" in str(sev) else (C_ORA if "中" in str(sev) else C_GREEN)
-                        sev_st = ParagraphStyle("_sev", fontName=fn, fontSize=9,
+                        sev_st = ParagraphStyle("_sev", fontName=fn, fontSize=10,
                                                 textColor=colors.HexColor(sv_c),
                                                 alignment=TA_CENTER)
                         rf_rows.append([
@@ -1002,7 +1002,7 @@ class PDFReportBuilder:
                                              Paragraph(str(v), st_cell)])
                     if val_rows:
                         els.append(styled_table(val_rows, [W * 0.22, W * 0.78],
-                                                hdr_bg=C_GREEN, show_grid=False))
+                                                hdr_bg="#EAFAF1", show_grid=False))
                     els.append(Spacer(1, 6))
 
                 # 风险管理表
@@ -1066,18 +1066,18 @@ class PDFReportBuilder:
                 els += sec("十、市场行情图表", C_NAV)
 
             if charts.get("price_trend") and os.path.exists(charts["price_trend"]):
-                els += sec("股价走势", C_BLUE, sz=11)
+                els += sec("股价走势", C_BLUE, sz=12)
                 els += chart_img(charts["price_trend"],
                                  "图：股价走势与移动均线（MA5 / MA20 / MA60）",
                                  W * 0.50)
 
             if charts.get("volume") and os.path.exists(charts["volume"]):
-                els += sec("成交量分析", C_BLUE, sz=11)
+                els += sec("成交量分析", C_BLUE, sz=12)
                 els += chart_img(charts["volume"],
                                  "图：股价与成交量（红涨绿跌）", W * 0.55)
 
             if charts.get("technical") and os.path.exists(charts["technical"]):
-                els += sec("技术指标 (RSI & MACD)", C_BLUE, sz=11)
+                els += sec("技术指标 (RSI & MACD)", C_BLUE, sz=12)
                 els += chart_img(charts["technical"],
                                  "图：RSI 超买超卖 & MACD 趋势指标", W * 0.68)
 
