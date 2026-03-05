@@ -1,0 +1,35 @@
+# Environment & secrets
+.env
+*.env
+.env.*
+
+# Output files
+output/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Claude session files
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

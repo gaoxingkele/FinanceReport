@@ -1,0 +1,64 @@
+# Stock Deep Research 配置文件
+# 复制此文件为 config.yaml 并填入实际API密钥
+
+llm:
+  provider: "openai"          # openai / anthropic / azure
+  model: "gpt-4o"             # 模型名称
+  api_key: "sk-011a28917f2f4f15879a423d20b9d8ed"
+  base_url: ""                # 留空使用默认URL, 或填写自定义地址
+  temperature: 0.1
+  max_tokens: 4096
+  max_retries: 3
+
+  # Azure 特定配置 (仅当 provider=azure 时使用)
+  azure:
+    api_version: "2024-02-01"
+    deployment_name: ""
+
+# 数据源配置
+data_sources:
+  # 东方财富 (中国A股)
+  eastmoney:
+    enabled: true
+
+  # Yahoo Finance (美股/港股)
+  yfinance:
+    enabled: true
+
+  # AKShare (中国市场综合数据)
+  akshare:
+    enabled: true
+
+  # 新闻API (可选)
+  news_api:
+    api_key: ""
+    enabled: false
+
+# 智能体配置
+agents:
+  max_rounds: 3               # 每个智能体最大迭代轮次
+  language: "zh"               # zh / en
+  parallel_analysis: true      # 并行执行分析智能体
+
+# 认知层配置 (Cogito)
+cognitive:
+  enable_reflection: true      # 启用自我反思
+  enable_planning: true        # 启用任务规划
+  enable_memory: true          # 启用记忆管理
+  memory_max_items: 100        # 记忆库最大条目数
+  reflection_depth: 2          # 反思深度
+
+# 报告配置
+report:
+  output_format: "pdf"         # pdf / markdown / both
+  output_dir: "./output"
+  include_charts: true
+  chart_style: "seaborn-v0_8"
+  language: "zh"
+  font_family: "SimSun"        # 中文字体
+
+# 去重配置
+dedup:
+  bert_threshold: 0.85         # BERT相似度阈值
+  minhash_threshold: 0.3       # MinHash相似度阈值
+  max_news_items: 50           # 最大新闻条数
