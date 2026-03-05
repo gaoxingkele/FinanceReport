@@ -6,6 +6,9 @@
 # Output files
 output/
 
+# PDF files (generated reports and binary references)
+*.pdf
+
 # Python cache
 __pycache__/
 *.py[cod]
